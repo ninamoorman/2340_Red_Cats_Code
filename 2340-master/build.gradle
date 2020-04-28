@@ -1,0 +1,35 @@
+defaultTasks 'jar'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+
+jar { 
+	manifest {
+		attributes 'Main-Class': 'edu.gatech.oad.antlab.pkg1.AntLabMain',
+        		   'Class-Path': 'lib/resources.jar',
+			   'Implementation-Title': 'M2_jar',
+			   'Implementation-Version': '1.0'
+			   
+	}
+	destinationDir = file(".")
+    	baseName 'M2'
+}
+
+dependencies {
+	compile files ('lib/resources.jar')
+	testCompile "junit:junit:4.12"
+}
+
+task myJavadocs(type: Javadoc) {
+	source = sourceSets.main.allJava
+}
+
+repositories {
+    mavenCentral()
+}
+
+clean {
+    delete rootProject.buildDir, 'M2.jar'
+}
